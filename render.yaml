@@ -7,3 +7,4 @@ services:
     envVars:
       - key: PORT
         generateValue: true
+    autoDeploy: true
