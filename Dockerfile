@@ -7,14 +7,17 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
-# 🔥 FIX: give execute permission to mvnw
+# Give execute permission to mvnw
 RUN chmod +x mvnw
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
 
+# Copy the jar with a fixed name
+RUN cp target/*.jar app.jar
+
 # Expose port
 EXPOSE 8080
 
-# Run Spring Boot app
-CMD ["java", "-jar", "target/*.jar"]
+# Run the app
+CMD ["java", "-jar", "app.jar"]
