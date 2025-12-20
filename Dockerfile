@@ -1,17 +1,20 @@
-# Use official Java 17 image
+# Use Java 17
 FROM eclipse-temurin:17-jdk
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and project files
+# Copy project files
 COPY . .
+
+# 🔥 FIX: give execute permission to mvnw
+RUN chmod +x mvnw
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
 
-# Expose port (Render provides PORT)
+# Expose port
 EXPOSE 8080
 
-# Run the Spring Boot app
+# Run Spring Boot app
 CMD ["java", "-jar", "target/*.jar"]
